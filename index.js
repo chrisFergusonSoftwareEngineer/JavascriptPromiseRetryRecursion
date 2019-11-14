@@ -19,6 +19,7 @@ function repeatPromise(targetSecondOnesPlace, promise, recursionCount) {
         promise(targetSecondOnesPlace)
         .then((result) => {
             if (result == "retry") {
+                sleep(250);
                 repeatPromise(targetSecondOnesPlace, promise, recursionCount + 1)
                 .then((retryResult) => {
                     resolve(retryResult);
@@ -41,4 +42,13 @@ function basePromise(targetSecondOnesPlace) {
 
         resolve("retry");
     });
+}
+
+function sleep(ms) {
+    let d = new Date();
+    d.setTime(d.getTime() + ms);
+    let currentTime = new Date();
+    while (currentTime.getTime() < d.getTime()) {
+        currentTime = new Date();
+    }
 }
